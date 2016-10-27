@@ -14,6 +14,21 @@ A minimal Angular 2 starter for Universal JavaScript using TypeScript 2 and Webp
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
+## Universal "Gotchas"
+
+ - To use `templateUrl` or `stylesUrl` you must use **`angular2-template-loader`** in your TS loaders.
+    - This is already setup within this starter repo. Look at the webpack.config file here for details & implementation.
+ - **`window`** & **`document`** do not exist on the server - so using them, or any library that uses them (jQuery for example) will not work.
+    - If you need to use them, consider limiting them to only your main.client and wrapping them situationally with the imported *isBrowser / isNode* features from Universal.  `import { isBrowser, isNode } from 'angular2-universal';
+ - The application runs XHR requests on the server & once again on the Client-side (when the application bootstraps)
+    - Use a [UniversalCache](https://github.com/angular/universal-starter/blob/master/src/app/universal-cache.ts) to save certain requests so they aren't re-ran again on the Client.
+ 
+## Upcoming Universal features
+
+ - SeoServices
+ - Universal fixes for Angular Core 2.1.1
+ - AoT funcionality is still a *work-in-progress*, but is available as of 2.1.0-rc1
+
 ## Installation
 
 * `npm install`
@@ -29,7 +44,18 @@ A minimal Angular 2 starter for Universal JavaScript using TypeScript 2 and Webp
 ## Watch files
 * `npm run watch` to build your client app and start a web server
 
+## Edge case of server compatibility with Promise polyfills
 
+If you have node modules with promise polyfill dependency on server - there is chance to get the following exception:
+```
+Error: Zone.js has detected that ZoneAwarePromise `(window|global).Promise` has been overwritten.
+```
+It occurs because [Zone.js](https://github.com/angular/zone.js/) Promise implementation is not 
+detected as Promise by some polyfills (e.g. [es6-promise](https://github.com/stefanpenner/es6-promise) before 4.x).
+
+To sort it out, you need such polyfills initialized before zone.js. Zone.js is initialized in 'angular2-universal-polyfills' 
+import of [server.ts](https://github.com/angular/universal-starter/blob/master/src/server.ts#L4). So import problematic
+modules before this line.
 
 ### Documentation
 [Design Doc](https://docs.google.com/document/d/1q6g9UlmEZDXgrkY88AJZ6MUrUxcnwhBGS0EXbVlYicY)

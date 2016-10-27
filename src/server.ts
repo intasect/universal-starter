@@ -1,4 +1,6 @@
-// the polyfills must be the first thing imported in node.js
+// the polyfills must be one of the first things imported in node.js.
+// The only modules to be imported higher - node modules with es6-promise 3.x or other Promise polyfill dependency
+// (rule of thumb: do it if you have zone.js exception that it has been overwritten)
 import 'angular2-universal-polyfills';
 
 import * as path from 'path';
@@ -12,7 +14,7 @@ import { enableProdMode } from '@angular/core';
 import { createEngine } from 'angular2-express-engine';
 
 // App
-import { MainModule } from './app.node.module';
+import { MainModule } from './app/app.node.module';
 
 // enable prod for faster renders
 enableProdMode();

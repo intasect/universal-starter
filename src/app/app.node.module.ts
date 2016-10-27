@@ -1,23 +1,32 @@
+// Fix Material Support
+import { __platform_browser_private__ } from '@angular/platform-browser';
+function universalMaterialSupports(eventName: string): boolean { return Boolean(this.isCustomEvent(eventName)); }
+__platform_browser_private__.HammerGesturesPlugin.prototype.supports = universalMaterialSupports;
+// End Fix Material Support
+
+
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
 import { UniversalModule, isBrowser, isNode } from 'angular2-universal/node'; // for AoT we need to manually split universal packages
-
 import { Ng2GetHTMLModule } from 'ng2-gethtml/ng2-gethtml';
 
-import { App, Home, GetHTML } from './app/app';
-import { Cache } from './app/universal-cache';
+import { HomeModule } from './home/home.module';
+import { AboutModule } from './about/about.module';
+import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
+import { Cache } from './universal-cache';
 
 @NgModule({
-  bootstrap: [ App ],
-  declarations: [ App, Home, GetHTML ],
+  bootstrap: [ AppComponent ],
+  declarations: [ AppComponent ],
   imports: [
     UniversalModule, // NodeModule, NodeHttpModule, and NodeJsonpModule are included
     FormsModule,
     Ng2GetHTMLModule.forRoot(),
-    RouterModule.forRoot([
-      { path: '', component: Home, pathMatch: 'full' }
-    ])
+    HomeModule,
+    AboutModule,
+
+    AppRoutingModule
   ],
   providers: [
     { provide: 'isBrowser', useValue: isBrowser },
