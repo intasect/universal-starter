@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'home',
+<<<<<<< HEAD
   template: `
     <div>
         <button (click)="test()"></button>
@@ -30,4 +31,10 @@ export class HomeComponent {
     test() {
         console.log('test clicked');
     }
+=======
+  template: 'Home component'
+})
+export class HomeComponent {
+
+>>>>>>> 6989692d620116f8dfea8ee6c381b68657a47a40
 }

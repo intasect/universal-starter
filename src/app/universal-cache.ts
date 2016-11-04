@@ -20,7 +20,11 @@ export function rehydrateCache(defaultValue) {
 @Injectable()
 export class Cache {
   _cache = {};
+<<<<<<< HEAD
   constructor( @Inject('isBrowser') isBrowser: boolean) {
+=======
+  constructor(@Inject('isBrowser') isBrowser: boolean) {
+>>>>>>> 6989692d620116f8dfea8ee6c381b68657a47a40
     if (isBrowser) {
       let serverCache = rehydrateCache(this._cache);
       this.rehydrate(serverCache);
