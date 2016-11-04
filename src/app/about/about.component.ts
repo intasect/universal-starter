@@ -16,9 +16,9 @@ import { Component } from '@angular/core';
       </div>
       <ng2-script src="https://contents.netbk.co.jp/pc/js/Rtoaster.js"></ng2-script>
       <ng2-script>
-          //console.log(Rtoaster.init);
-          //Rtoaster.init("RTA-d0a3-19753cfa1660");
-          //Rtoaster.recommendNow("kouza_bnr01","netbktopsmall01","netbktopsmall02","netbktopsmall03","netbktopsmall04");
+          console.log(Rtoaster.init);
+          Rtoaster.init("RTA-d0a3-19753cfa1660");
+          Rtoaster.recommendNow("kouza_bnr01","netbktopsmall01","netbktopsmall02","netbktopsmall03","netbktopsmall04");
       </ng2-script>
     </ng2-gethtml>
   `
